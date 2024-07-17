@@ -6,6 +6,11 @@
 ---
 ### BLOG
 
+#### 240617 - Pet Store Part 1
+* This week's Pet Store homework.  You should reference the commit notes and the assignment notes for more information.  
+* Conveniently enough I forgot to update the readme.md, so I get to do an additional commit and push.
+* I added so many comments it's actually making it harder to read.  Short and Concise vs Verbose Educational Comments?
+
 #### 240609 - C# Hello World!
 * Select "Do Not Use Top Level Statements".  This creates a more explicit program syntax, which is more complete for learning purposes.  You are going to want to learn how to deal with both namespaces and classes, so now is as good a time as any to start using them.
     ```

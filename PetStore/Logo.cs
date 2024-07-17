@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PetStore
 {
-    internal class Logo
+    public class Logo
     {
         public static string GetLogo()
         {
