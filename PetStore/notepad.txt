@@ -1,0 +1,14 @@
+﻿                    // I can't help but add things.
+                    Console.WriteLine("Product added!");
+                    Console.WriteLine();
+                    Console.WriteLine($"Product: {catFood.Name}");
+                    Console.WriteLine($"Price: {catFood.Price}");
+                    Console.WriteLine($"Description: {catFood.Description}");
+                    Console.WriteLine($"Quantity: {catFood.Quantity}");
+                    Console.WriteLine($"Weight: {catFood.WeightPounds} lbs");
+                    Console.WriteLine($"Kitten Food: {catFood.KittenFood}");
+                    Console.WriteLine();
+
+                    // Here's what was actually asked for.
+                    string jsonString = JsonSerializer.Serialize(catFood);
+                    Console.WriteLine(jsonString);

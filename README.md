@@ -6,6 +6,16 @@
 ---
 ### BLOG
 
+#### 240624 - Pet Store Part 2
+* Updated main input logic to a switch statement
+* Added the initial ProductLogic.cs
+* Added some Dictionaries to act as indexes
+  * Added initial basic fuctions and framework
+  * Added initial Get and Search functions, including a Search version with a Lambda Function
+  * Added `<Enter><Enter>` as another way to exit the program
+* Fixed a bug where I forgot to have DogLeash Inherit from Product
+* Ran standard code cleanup from the solution manager.
+
 #### 240617 - Pet Store Part 1
 * This week's Pet Store homework.  You should reference the commit notes and the assignment notes for more information.  
 * Conveniently enough I forgot to update the readme.md, so I get to do an additional commit and push.
