@@ -21,8 +21,10 @@ namespace PetStore
             {
                 Console.WriteLine();
                 Console.WriteLine("What would you like to do?");
-                Console.WriteLine("1. Add a product");
+                Console.WriteLine("1. Add a Product");
                 Console.WriteLine("2. Get CatFood by Name");
+                Console.WriteLine("   ---");
+                Console.WriteLine("9. Add a Test Product");
                 Console.WriteLine("0. Exit");
 
                 // Null forgiving postfix operator "!"
@@ -63,18 +65,13 @@ namespace PetStore
                     case "a":
                     case "1":
                         {
-                            // It did not say we had to input it from console, just create one and print it.
-                            // KISS - Keep It Simple ... It's killing me not to add more. ;-p
-                            CatFood product = new CatFood()
+                            CatFood product = null;
+                            product = UserInput.ConsoleInputCatfood();
+                            if (product == null)
                             {
-                                Name = "Cat Food",
-                                Price = 10.99m,
-                                Description = "A delicious meal for your cat",
-                                Quantity = "5",
-                                WeightPounds = 5.5,
-                                KittenFood = false
-                            };
-
+                                Console.WriteLine("Product not added.");
+                                break;
+                            }
                             productLogic.AddProduct(product);
                             Console.WriteLine("Product Added!");
                             string jsonString = JsonSerializer.Serialize(product);
@@ -100,6 +97,27 @@ namespace PetStore
                             Console.WriteLine($"Quantity: {catFood.Quantity}");
                             Console.WriteLine($"Weight: {catFood.WeightPounds}");
                             Console.WriteLine($"Kitten Food: {catFood.KittenFood}");
+
+                            string jsonString = JsonSerializer.Serialize(catFood);
+                            Debug.WriteLine($"Product Found: {jsonString}");
+                            break;
+                        }
+                    case "9":
+                        {
+                            CatFood product = new CatFood()
+                            {
+                                Name = "Cat Food",
+                                Price = 10.99m,
+                                Description = "A delicious meal for your cat",
+                                Quantity = 5,
+                                WeightPounds = 5.5,
+                                KittenFood = false
+                            };
+
+                            productLogic.AddProduct(product);
+                            Console.WriteLine("Product Added!");
+                            string jsonString = JsonSerializer.Serialize(product);
+                            Debug.WriteLine($"Product Added: {jsonString}");
                             break;
                         }
                     case "0":
@@ -115,3 +133,4 @@ namespace PetStore
         }
     }
 }
+

@@ -6,6 +6,9 @@
 ---
 ### BLOG
 
+#### 240626 - Pet Store Part 2
+* Added UserInput.cs for user input of a Kitten Food.  
+
 #### 240624 - Pet Store Part 2
 * Updated main input logic to a switch statement
 * Added the initial ProductLogic.cs
