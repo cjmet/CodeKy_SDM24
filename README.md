@@ -6,6 +6,9 @@
 ---
 ### BLOG
 
+#### 240805 - Pet Store Part 3
+* Minor updates.  Purposefully added an exception in GetCatfoodOrThrow() in order to demonstrate try/catch  
+
 #### 240626 - Pet Store Part 2
 * Added UserInput.cs for user input of a Kitten Food.  
 
