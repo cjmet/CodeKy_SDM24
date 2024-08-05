@@ -51,7 +51,7 @@ namespace PetStore
             _displayString += ("Name: " + Name + "\n");
             _displayString += ("Price: " + Price + "\n");
             _displayString += ("Description: " + Description + "\n");
-            _displayString += ("Quantity: " + Quantity + "\n");
+            _displayString += ("Quantity: " + Quantity);
             return _displayString;
         }
 

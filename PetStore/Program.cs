@@ -75,7 +75,7 @@ namespace PetStore
                             }
                             productLogic.AddProduct(product);
                             Console.WriteLine("\nProduct Added!\n");
-                            Console.WriteLine(product.DisplayText());
+                            Console.WriteLine(product.DisplayText() + "\n");
                             Console.WriteLine(product.DisplayJson());
                             break;
                         }
@@ -103,7 +103,7 @@ namespace PetStore
                                 break;
                             }
                             Console.WriteLine();
-                            Console.WriteLine(catFood.DisplayText());
+                            Console.WriteLine(catFood.DisplayText() + "\n");
                             Console.WriteLine(catFood.DisplayJson());
                             break;
                         }
@@ -121,7 +121,7 @@ namespace PetStore
                                 break;
                             }
                             Console.WriteLine();
-                            Console.WriteLine(catFood.DisplayText());
+                            Console.WriteLine(catFood.DisplayText() + "\n");
                             Console.WriteLine(catFood.DisplayJson());
                             break;
                         }
@@ -139,7 +139,7 @@ namespace PetStore
 
                             productLogic.AddProduct(product);
                             Console.WriteLine("Product Added!\n");
-                            Console.WriteLine(product.DisplayText());
+                            Console.WriteLine(product.DisplayText() + "\n");
                             Console.WriteLine(product.DisplayJson());
                             break;
                         }

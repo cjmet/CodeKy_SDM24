@@ -31,17 +31,19 @@ namespace PetStore
         }
         public override String DisplayText()
         {
-            String _displayString = base.DisplayText();
+            String _displayString = base.DisplayText() + "\n";
             _displayString += ("Weight: " + WeightPounds + "\n");
-            _displayString += ("Kitten Food: " + KittenFood + "\n");
+            _displayString += ("Kitten Food: " + KittenFood);
 
             return _displayString;
         }
-        public override String DisplayJson()
-        {
-            // We do NOT want to call base.DisplayJson(); this time.
-            String jsonString = JsonSerializer.Serialize(this);
-            return jsonString;
-        }
+        // This whole thing isn't necessary, because we really didn't change anything.  
+        // We COULD override it if we did want to change something, but we don't need to.
+        //public override String DisplayJson()
+        //{
+        //    // We do NOT want to call base.DisplayJson(); this time.
+        //    String jsonString = JsonSerializer.Serialize(this);
+        //    return jsonString;
+        //}
     }
 }
