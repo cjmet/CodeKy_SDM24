@@ -1,4 +1,5 @@
-﻿
+﻿using System.Text.Json;
+
 namespace PetStore
 {
     public class ProductLogic
@@ -13,6 +14,7 @@ namespace PetStore
             _catFood = new Dictionary<string, CatFood>();
             _dogLeash = new Dictionary<string, DogLeash>();
         }
+
 
         public void AddProduct(Product product)
         {

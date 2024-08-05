@@ -66,21 +66,21 @@ namespace PetStore
                     case "a":
                     case "1":
                         {
-                            CatFood product = null;
-                            product = UserInput.ConsoleInputCatfood();
-                            if (product == null)
+                            CatFood product = new CatFood(); 
+                            product.GetFromConsole();
+                            if (string.IsNullOrWhiteSpace(product.Name))
                             {
                                 Console.WriteLine("Product not added.");
                                 break;
                             }
                             productLogic.AddProduct(product);
-                            Console.WriteLine("Product Added!");
-                            string jsonString = JsonSerializer.Serialize(product);
-                            Debug.WriteLine($"Product Added: {jsonString}");
+                            Console.WriteLine("\nProduct Added!\n");
+                            Console.WriteLine(product.DisplayText());
+                            Console.WriteLine(product.DisplayJson());
                             break;
                         }
                     case "G":
-                    case "2":
+                    case "2": // Get CatFood by EXACT Name, including case.
                         {
                             Console.WriteLine("Enter the name of the CatFood you want to retrieve:");
                             string name = Console.ReadLine()!;
@@ -102,19 +102,13 @@ namespace PetStore
                                 Console.WriteLine("CatFood not found.");
                                 break;
                             }
-                            Console.WriteLine($"Name: {catFood.Name}");
-                            Console.WriteLine($"Price: {catFood.Price}");
-                            Console.WriteLine($"Description: {catFood.Description}");
-                            Console.WriteLine($"Quantity: {catFood.Quantity}");
-                            Console.WriteLine($"Weight: {catFood.WeightPounds}");
-                            Console.WriteLine($"Kitten Food: {catFood.KittenFood}");
-
-                            string jsonString = JsonSerializer.Serialize(catFood);
-                            Debug.WriteLine($"Product Found: {jsonString}");
+                            Console.WriteLine();
+                            Console.WriteLine(catFood.DisplayText());
+                            Console.WriteLine(catFood.DisplayJson());
                             break;
                         }
                     case "S":
-                    case "3": // Get CatFood by Name
+                    case "3": // Search CatFood by Name
                         {
                             Console.WriteLine("Enter the name of the CatFood you want to search:");
                             string name = Console.ReadLine()!;
@@ -126,15 +120,9 @@ namespace PetStore
                                 Console.WriteLine("CatFood not found.");
                                 break;
                             }
-                            Console.WriteLine($"Name: {catFood.Name}");
-                            Console.WriteLine($"Price: {catFood.Price}");
-                            Console.WriteLine($"Description: {catFood.Description}");
-                            Console.WriteLine($"Quantity: {catFood.Quantity}");
-                            Console.WriteLine($"Weight: {catFood.WeightPounds}");
-                            Console.WriteLine($"Kitten Food: {catFood.KittenFood}");
-
-                            string jsonString = JsonSerializer.Serialize(catFood);
-                            Debug.WriteLine($"Product Found: {jsonString}");
+                            Console.WriteLine();
+                            Console.WriteLine(catFood.DisplayText());
+                            Console.WriteLine(catFood.DisplayJson());
                             break;
                         }
                     case "9":
@@ -150,9 +138,9 @@ namespace PetStore
                             };
 
                             productLogic.AddProduct(product);
-                            Console.WriteLine("Product Added!");
-                            string jsonString = JsonSerializer.Serialize(product);
-                            Debug.WriteLine($"Product Added: {jsonString}");
+                            Console.WriteLine("Product Added!\n");
+                            Console.WriteLine(product.DisplayText());
+                            Console.WriteLine(product.DisplayJson());
                             break;
                         }
                     case "0":
