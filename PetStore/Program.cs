@@ -23,6 +23,7 @@ namespace PetStore
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("1. Add a Product");
                 Console.WriteLine("2. Get CatFood by Name");
+                Console.WriteLine("3. Search for CatFood");
                 Console.WriteLine("   ---");
                 Console.WriteLine("9. Add a Test Product");
                 Console.WriteLine("0. Exit");
@@ -79,9 +80,43 @@ namespace PetStore
                             break;
                         }
                     case "G":
-                    case "2": // Get CatFood by Name
+                    case "2":
                         {
                             Console.WriteLine("Enter the name of the CatFood you want to retrieve:");
+                            string name = Console.ReadLine()!;
+                            //CatFood catFood = productLogic.GetCatFoodByName(name);
+                            // handles the issue more gracefully, but we are specifically wanting to
+                            // throw an exception here, in order to demonstrate try/catch
+                            CatFood catFood;
+                            try
+                            {
+                                catFood = productLogic.GetCatFoodOrThrow(name);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"CatFood not found. {ex.Message}");
+                                break;
+                            }
+                            if (catFood == null)
+                            {
+                                Console.WriteLine("CatFood not found.");
+                                break;
+                            }
+                            Console.WriteLine($"Name: {catFood.Name}");
+                            Console.WriteLine($"Price: {catFood.Price}");
+                            Console.WriteLine($"Description: {catFood.Description}");
+                            Console.WriteLine($"Quantity: {catFood.Quantity}");
+                            Console.WriteLine($"Weight: {catFood.WeightPounds}");
+                            Console.WriteLine($"Kitten Food: {catFood.KittenFood}");
+
+                            string jsonString = JsonSerializer.Serialize(catFood);
+                            Debug.WriteLine($"Product Found: {jsonString}");
+                            break;
+                        }
+                    case "S":
+                    case "3": // Get CatFood by Name
+                        {
+                            Console.WriteLine("Enter the name of the CatFood you want to search:");
                             string name = Console.ReadLine()!;
                             //CatFood catFood = productLogic.GetCatFoodByName(name);
                             //That only finds exact matches, so lets improve (a little) on that.

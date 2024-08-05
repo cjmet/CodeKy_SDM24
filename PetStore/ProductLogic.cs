@@ -33,6 +33,12 @@ namespace PetStore
             return _products;
         }
 
+        // Added just to puprosefully throw an exception that needs to be caught.
+        public CatFood GetCatFoodOrThrow(string name)
+        {
+            return _catFood[name];
+        }
+
         public CatFood GetCatFoodByName(string name)
         {
             CatFood catFood = null;
