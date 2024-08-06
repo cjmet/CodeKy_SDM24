@@ -44,6 +44,8 @@ namespace PetStore
             } while (quantity < 0);
             this.Quantity = quantity;
         }
+
+        // This should really probably be override ToString() instead of DisplayText()
         virtual public String DisplayText()
         {
             String _displayString = "";
@@ -60,6 +62,9 @@ namespace PetStore
             String jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
+
+        // I'm purposefully NOT overriding the ToString method here,
+        // to demonstrate the differences and options.
 
     }
 }

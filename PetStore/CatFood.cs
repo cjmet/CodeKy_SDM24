@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace PetStore
 {
@@ -29,6 +30,8 @@ namespace PetStore
             } while (input != "y" && input != "yes" && input != "n" && input != "no");
             this.KittenFood = kittenFood;
         }
+        
+        // This should really probably be override ToString() instead of DisplayText()
         public override String DisplayText()
         {
             String _displayString = base.DisplayText() + "\n";
@@ -37,6 +40,12 @@ namespace PetStore
 
             return _displayString;
         }
+
+        public override string ToString()
+        {
+            return "---\n" + this.DisplayText() + "\n\n" + this.DisplayJson() + "\n---\n";
+        }
+
         // This whole thing isn't necessary, because we really didn't change anything.  
         // We COULD override it if we did want to change something, but we don't need to.
         //public override String DisplayJson()
