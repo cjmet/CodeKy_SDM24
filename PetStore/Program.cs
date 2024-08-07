@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-
-namespace PetStore
+﻿namespace PetStore
 {
     internal class Program
     {
@@ -17,6 +14,8 @@ namespace PetStore
             string userInput;
             bool loop = true;
             int blankLine = 0;  // I want to exit if you hit enter twice.
+
+            // User input Do-While loop
             do
             {
                 Console.WriteLine();
@@ -61,12 +60,13 @@ namespace PetStore
                     }
                 }
 
+                // Switch statement for user input
                 switch (userInput.ToLower())
                 {
                     case "a":
                     case "1":
                         {
-                            CatFood product = new CatFood(); 
+                            CatFood product = new CatFood();
                             product.GetFromConsole();
                             if (string.IsNullOrWhiteSpace(product.Name))
                             {

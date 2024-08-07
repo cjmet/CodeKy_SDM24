@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace PetStore
+﻿namespace PetStore
 {
     public class CatFood : Product
     {
