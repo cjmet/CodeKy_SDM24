@@ -139,7 +139,7 @@
 
                             productLogic.AddProduct(product);
                             Console.WriteLine("Product Added!\n");
-                            Console.WriteLine(product);
+                            Console.WriteLine("---\n" + product + "\n---");
                             break;
                         }
                     case "0":

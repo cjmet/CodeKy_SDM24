@@ -35,6 +35,12 @@
 
             return _displayString;
         }
+
+        public override string ToString()
+        {
+            return DisplayText();
+        }
+
         // This whole thing isn't necessary, because we really didn't change anything.  
         // We COULD override it if we did want to change something, but we don't need to.
         //public override String DisplayJson()
