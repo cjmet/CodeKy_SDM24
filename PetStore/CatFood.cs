@@ -7,6 +7,7 @@ namespace PetStore
         public double WeightPounds { get; set; }
         public bool KittenFood { get; set; }
 
+        public override IProduct NewProduct() { return new CatFood(); }
         public override void GetFromConsole()
         {
             base.GetFromConsole();

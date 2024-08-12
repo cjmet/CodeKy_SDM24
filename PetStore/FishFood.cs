@@ -12,6 +12,7 @@ namespace PetStore
         public double WeightOunces { get; set; }
         public bool FlakeFood { get; set; }
 
+        public override IProduct NewProduct() { return new FishFood();}
         public override void GetFromConsole()
         {
             base.GetFromConsole();

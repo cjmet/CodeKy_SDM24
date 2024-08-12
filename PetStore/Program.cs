@@ -2,9 +2,8 @@
 {
     internal class Program
     {
-        // We haven't covered Refleions yet, so I'm going to use a list of products.
-        // We probably won't cover reflection enough to use it in this way.
-        private static List<IProduct> _productList = [ new CatFood(), new DogLeash(), new FishFood() ];
+        // We haven't covered Reflection yet, so I'm going to use a list of products.
+        private static List<IProduct> _productList = [new CatFood(), new DogLeash(), new FishFood(), new CatToys()];
 
         static void Main(string[] args)
         {
@@ -71,7 +70,7 @@
                     case "a":
                     case "1":
                         {
-                            IProduct product = Program.ConsoleGetNewProduct();
+                            IProduct? product = Program.ConsoleGetNewProduct();
                             if (product == null)
                             {
                                 Console.WriteLine("Product not created.");
@@ -122,7 +121,7 @@
             } while (loop);
         }
 
-        private static void AddTestData (ProductLogic _productLogic)
+        private static void AddTestData(ProductLogic _productLogic)
         {
             _productLogic.AddProduct(new CatFood
             {
@@ -142,7 +141,8 @@
                 LengthInches = 60,
                 Material = "Nylon"
             });
-            _productLogic.AddProduct(new FishFood { 
+            _productLogic.AddProduct(new FishFood
+            {
                 Name = "TetraMin FishFood",
                 Price = 5.99M,
                 Description = "Fish food for tropical fish",
@@ -150,10 +150,17 @@
                 WeightOunces = 2.0,
                 FlakeFood = true
             });
+            _productLogic.AddProduct(new CatToys
+            {
+                Name = "Catnip Mouse Toy",
+                Price = 2.99M,
+                Description = "Cat toy filled with catnip",
+                Quantity = 15,
+            });
         }
 
-
-        private static IProduct ConsoleGetNewProduct() { 
+        private static IProduct? ConsoleGetNewProduct()
+        {
             Console.WriteLine("Select a Product Type:");
             foreach (IProduct product in _productList)
             {
@@ -170,8 +177,20 @@
                 var shortClassName = verboseClassName.Substring(verboseClassName.LastIndexOf('.') + 1);
                 if (productType == shortClassName)
                 {
-                    product.GetFromConsole();
-                    return product;
+                    IProduct? newProduct = null;
+
+                    // Grab a new instance via Reflection or a method
+                    newProduct = NewIProductInstance(product);
+
+                    if (newProduct == null)
+                    {
+                        Console.WriteLine("ERROR: Failed to get a new instace of product!");
+                    }
+                    else
+                    {
+                        newProduct.GetFromConsole();
+                    }
+                    return newProduct;
                 }
             }
 
@@ -186,6 +205,31 @@
             Console.WriteLine();
             IProduct product = _productLogic.SearchForProduct(name);
             return product;
+        }
+
+        private static IProduct? NewIProductInstance(IProduct product)
+        {
+            if (product == null) return null;
+            IProduct? newProduct = null;
+            bool useReflection = false;
+            // Grab a new instance via Reflection
+            if (useReflection)
+            {
+                //WARNING: If this isn't an IProduct this is going to go sideways really fast.
+                //  1) This is probably more Reflection? And we haven't covered that yet.
+                //  2) We could use a Product.New() method in each IProduct? bypassing reflection.
+                //  3) Or we could just long hand test each option with a switch.
+                //Type type = obj.GetType();
+                //return Activator.CreateInstance(type);
+                var _type = product.GetType();
+                newProduct = (IProduct?)Activator.CreateInstance(_type);
+            }
+            // Grab a new instance via a method
+            else
+            {
+                newProduct = product.NewProduct();
+            }
+            return newProduct;
         }
 
     }

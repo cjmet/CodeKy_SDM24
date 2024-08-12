@@ -2,13 +2,14 @@
 
 namespace PetStore
 {
-    public class Product : IProduct
+    abstract public class Product : IProduct
     {
         public string Name { get; set; } = "";
         public decimal Price { get; set; }
         public string Description { get; set; } = "";
         public int Quantity { get; set; }
 
+        abstract public IProduct NewProduct();
         virtual public void GetFromConsole()
         {
             string name;
@@ -66,6 +67,8 @@ namespace PetStore
         {
             return GetText();
         }
+
+
 
     }
 }

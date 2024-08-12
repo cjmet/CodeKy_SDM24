@@ -15,5 +15,6 @@ namespace PetStore
         public String GetText();
         public String GetJson();
         public string ToString();
+        abstract public IProduct NewProduct();
     }
 }
