@@ -2,11 +2,11 @@
 
 namespace PetStore
 {
-    public class Product
+    public class Product : IProduct
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public decimal Price { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
         public int Quantity { get; set; }
 
         virtual public void GetFromConsole()
@@ -45,7 +45,7 @@ namespace PetStore
         }
 
         // This should really probably be override ToString() instead of DisplayText()
-        virtual public String DisplayText()
+        virtual public String GetText()
         {
             String _displayString = "";
 
@@ -56,14 +56,16 @@ namespace PetStore
             return _displayString;
         }
 
-        virtual public String DisplayJson()
+        virtual public String GetJson()
         {
             String jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
 
-        // I'm purposefully NOT overriding the ToString method here,
-        // to demonstrate the differences and options.
+        public override string ToString()
+        {
+            return GetText();
+        }
 
     }
 }

@@ -1,11 +1,16 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace PetStore
 {
-    public class CatFood : Product, IProduct
+    public class FishFood : Product, IProduct
     {
-        public double WeightPounds { get; set; }
-        public bool KittenFood { get; set; }
+        public double WeightOunces { get; set; }
+        public bool FlakeFood { get; set; }
 
         public override void GetFromConsole()
         {
@@ -13,27 +18,27 @@ namespace PetStore
             double weight;
             do
             {
-                Console.WriteLine("Enter the weight of the CatFood:");
+                Console.WriteLine("Enter the weight of the FishFood in Ounces:");
                 weight = double.TryParse(Console.ReadLine()!, out weight) ? weight : -1;
             } while (weight < 0);
-            this.WeightPounds = weight;
+            this.WeightOunces = weight;
 
-            bool kittenFood;
+            bool flakeFood;
             string input;
             do
             {
-                Console.WriteLine("Is this Kitten Food? (y/n)");
+                Console.WriteLine("Is this Flake Food? (y/n)");
                 input = Console.ReadLine()!.ToLower();
                 input = input.Trim();
-                kittenFood = input == "y" || input == "yes";
+                flakeFood = input == "y" || input == "yes";
             } while (input != "y" && input != "yes" && input != "n" && input != "no");
-            this.KittenFood = kittenFood;
+            this.FlakeFood = flakeFood;
         }
         public override String GetText()
         {
             String _displayString = base.GetText() + "\n";
-            _displayString += ("Weight: " + WeightPounds + "\n");
-            _displayString += ("Kitten Food: " + KittenFood);
+            _displayString += ("Ounces: " + WeightOunces + "\n");
+            _displayString += ("Flake Food: " + FlakeFood);
 
             return _displayString;
         }

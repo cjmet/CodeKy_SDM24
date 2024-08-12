@@ -2,85 +2,47 @@
 {
     public class ProductLogic
     {
-        private List<Product> _products;
-        private Dictionary<string, CatFood> _catFood;
-        private Dictionary<string, DogLeash> _dogLeash;
+        private Dictionary<string, IProduct> _products;
 
         public ProductLogic()
         {
-            _products = new List<Product>();
-            _catFood = new Dictionary<string, CatFood>();
-            _dogLeash = new Dictionary<string, DogLeash>();
+            _products = new Dictionary<string, IProduct>();
         }
 
 
-        public void AddProduct(Product product)
+        public void AddProduct(IProduct product)
         {
-            _products.Add(product);
-            if (product is CatFood)
-            {
-                _catFood.Add(product.Name, product as CatFood);
-            }
-            else if (product is DogLeash)
-            {
-                _dogLeash.Add(product.Name, product as DogLeash);
-            }
-            else { throw new Exception("the product added is neither CatFood nor DogLeash."); }   // if it's not defined and indexed in a dictionary, throw an exception.
+            _products.Add(product.Name, product);
         }
 
-        public List<Product> GetAllProducts()
+        public List<IProduct> GetAllProducts()
         {
-            return _products;
+            return _products.Values.ToList();
         }
 
-        // Added just to puprosefully throw an exception that needs to be caught.
-        public CatFood GetCatFoodOrThrow(string name)
+        public IProduct GetProductByName(string name)
         {
-            return _catFood[name];
-        }
-
-        public CatFood GetCatFoodByName(string name)
-        {
-            CatFood catFood = null;
+            IProduct _product = null;
 
             // Just returning catFood[name] would throw an exception if the key doesn't exist.
-            _catFood.TryGetValue(name, out catFood);
-            return catFood;
+            _products.TryGetValue(name, out _product);
+            return _product;
         }
 
-        // GetCatFoodByName only returns exact matches, so lets improve on that.
-        // This only returns the first match, not all matches. 
-        // We can further improve on this to return all matches later.
-        public CatFood SearchForCatFood(string name)
-        {
-            CatFood catFood = null;
-            name = name.ToLower();
-            foreach (var key in _catFood.Keys)
-            {
-                if (key.ToLower().Contains(name))
-                {
-                    catFood = _catFood[key];
-                    break;
-                }
-            }
-            return catFood;
-        }
-
-        // Another way to search for CatFood.
         // This is more of the C# style of doing things.
         // However, this uses a lambda expression, which we may not have covered in class yet.
-        public CatFood SearchForCatFoodAlt(string name)
+        public IProduct SearchForProduct(string name)
         {
-            CatFood catFood = null;
+            IProduct _product = null;
             name = name.ToLower();
 
-            var keys = _catFood.Keys.ToList();
+            var keys = _products.Keys.ToList();
             var key = keys.Find(k => k.ToLower().Contains(name));
             if (key != null)
             {
-                catFood = _catFood[key];
+                _product = _products[key];
             }
-            return catFood;
+            return _product;
         }
 
     }
