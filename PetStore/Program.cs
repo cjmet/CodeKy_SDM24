@@ -26,8 +26,10 @@
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("1. Add a Product");
                 Console.WriteLine("2. Search for a Product");
+                Console.WriteLine("3. Get All Products");
+                Console.WriteLine("4. Get In-Stock Product Names");
+                Console.WriteLine("5. Get Out-of-Stock Product Names");
                 Console.WriteLine("   ---");
-                Console.WriteLine("9. Get All Products");
                 Console.WriteLine("0. Exit");
 
                 // Null forgiving postfix operator "!"
@@ -100,13 +102,48 @@
                             break;
                         }
                     case "g":
-                    case "9":
+                    case "3":
                         {
                             List<IProduct> products = _productLogic.GetAllProducts();
-                            foreach (IProduct product in products)
+                            if (products?.Count > 0)
                             {
-                                Console.WriteLine(product.GetJson());
+                                Console.WriteLine("All Products:");
+                                foreach (IProduct product in products)
+                                {
+                                    Console.WriteLine(product.GetJson());
+                                }
                             }
+                            else Console.WriteLine("Null or No Products.");
+                            break;
+                        }
+                    case "i":
+                    case "4":
+                        {
+                            List<String> productNames = _productLogic.GetInStockProductNames();
+                            if (productNames?.Count > 0)
+                            {
+                                Console.WriteLine("In-Stock Products:");
+                                foreach (String name in productNames)
+                                {
+                                    Console.WriteLine(name);
+                                }
+                            }
+                            else Console.WriteLine("Null or No In-Stock Products.");
+                            break;
+                        }
+                    case "o":
+                    case "5":
+                        {
+                            List<String> productNames = _productLogic.GetOutOfStockProductNames();
+                            if (productNames?.Count > 0)
+                            {
+                                Console.WriteLine("Out-of-Stock Products:");
+                                foreach (String name in productNames)
+                                {
+                                    Console.WriteLine(name);
+                                }
+                            }
+                            else Console.WriteLine("Null or No Out-of-Stock Products.");
                             break;
                         }
                     case "0":
@@ -156,6 +193,20 @@
                 Price = 2.99M,
                 Description = "Cat toy filled with catnip",
                 Quantity = 15,
+            });
+            _productLogic.AddProduct(new CatToys
+            {
+                Name = "Feather Wand (OoS)",
+                Price = 4.99M,
+                Description = "Cat toy with feathers",
+                Quantity = 0,
+            });
+            _productLogic.AddProduct(new CatToys
+            {
+                Name = "Laser Pointer (OoS)",
+                Price = 1.99M,
+                Description = "Cat toy with laser",
+                Quantity = 0,
             });
         }
 

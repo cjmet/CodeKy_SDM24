@@ -9,7 +9,6 @@
             _products = new Dictionary<string, IProduct>();
         }
 
-
         public void AddProduct(IProduct product)
         {
             _products.Add(product.Name, product);
@@ -45,5 +44,19 @@
             return _product;
         }
 
+        public List<IProduct> GetInStockProducts()
+        {
+            return _products.Values.Where(p => p.Quantity >0).ToList();
+        }
+
+        public List<String> GetInStockProductNames()
+        {
+            return _products.Values.Where(p => p.Quantity > 0).Select(p => p.Name).ToList();
+        }
+
+        public List<String> GetOutOfStockProductNames()
+        {
+            return _products.Values.Where(p => p.Quantity <= 0).Select(p => p.Name).ToList();
+        }
     }
 }

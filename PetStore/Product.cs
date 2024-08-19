@@ -4,10 +4,10 @@ namespace PetStore
 {
     abstract public class Product : IProduct
     {
-        public string Name { get; set; } = "";
-        public decimal Price { get; set; }
-        public string Description { get; set; } = "";
-        public int Quantity { get; set; }
+        public String Name { get; set; } = "";
+        public Decimal Price { get; set; }
+        public String Description { get; set; } = "";
+        public Int32 Quantity { get; set; }
 
         abstract public IProduct NewProduct();
         virtual public void GetFromConsole()

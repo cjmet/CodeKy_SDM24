@@ -8,21 +8,26 @@
 - ...
 
 ### BLOG
-#### 240812 - Interface Refactoring Demo
+
+#### 240819 - SD.M2.Week1 - Pet Store Part 4
+- Updates for Pet Store Part 4
+    - Refactored the field types in Product.cs to **.Net** types instead of inherent C# types:  **S**tring, **I**nt**32**, **D**ecimal instead of string, int, decimal.
+    - Updated IProduct to allow access to Qauntity.  
+      - I think I would have preferred to give access to an In-Stock() method instead, where Instock > 0, Out of Stock <= 0, Backordered < 0.
+    - Added IProductLogic and GetInStockProducts(), GetInStockProductNames(), GetOutOfStockProductNames();
+
+#### 240812 - SD.M1.Week5 - Interface Refactoring Demo
 * Refactored the PetStore project to use an IProduct interface.  This will allow us to add an unlimited number of product child classes more easily with less duplication of code.
   * added an abstract NewProduct() method to work with the foreach List\<IProduct> of products in program.cs
   * demostrating both the use of methods and reflection for the task.  
 
-#### 240805 - Pet Store Part 3
+#### 240805 - SD.M1.Week 4 - Pet Store Part 3
 * Minor updates.  Purposefully added an exception in GetCatfoodOrThrow() in order to demonstrate try/catch  
 * Program Improvements to Discuss
 * Removed trailing newlines, and commented out extraneous override.
 * override ToString() for discussion
 
-#### 240626 - Pet Store Part 2
-* Added UserInput.cs for user input of a Kitten Food.  
-
-#### 240624 - Pet Store Part 2
+#### 240626 - SD.M1.Week3 - Pet Store Part 2
 * Updated main input logic to a switch statement
 * Added the initial ProductLogic.cs
   * Added some Dictionaries to act as indexes
@@ -31,13 +36,14 @@
 * Added `<Enter><Enter>` as another way to exit the program
 * Fixed a bug where I forgot to have DogLeash Inherit from Product
 * Ran standard code cleanup from the solution manager.
+* Added UserInput.cs for user input of a Kitten Food.  
 
-#### 240617 - Pet Store Part 1
+#### 240617 - SD.M1.Week2 - Pet Store Part 1
 * This week's Pet Store homework.  You should reference the commit notes and the assignment notes for more information.  
 * Conveniently enough I forgot to update the readme.md, so I get to do an additional commit and push.
 * I added so many comments it's actually making it harder to read.  Short and Concise vs Verbose Educational Comments?
 
-#### 240609 - C# Hello World!
+#### 240609 - SD.M1.Week1 - C# Hello World!
 * Select "Do Not Use Top Level Statements".  This creates a more explicit program syntax, which is more complete for learning purposes.  You are going to want to learn how to deal with both namespaces and classes, so now is as good a time as any to start using them.
     ```
     namespace Week_240616
