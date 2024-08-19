@@ -21,7 +21,7 @@ namespace PetStore
             string input;
             do
             {
-                Console.WriteLine("Is this Leashe's Material?");
+                Console.WriteLine("What is this Leashe's Material?");
                 input = Console.ReadLine().Trim()!;
             } while (input == null || input == "");
             this.Material = input;
@@ -39,7 +39,5 @@ namespace PetStore
             String jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
-
-
     }
 }
