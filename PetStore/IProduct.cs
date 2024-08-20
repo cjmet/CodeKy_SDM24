@@ -9,13 +9,13 @@ namespace PetStore
 {
         public interface IProduct 
         {
-        public string Name { get; set; }
-        public int Quantity { get; set; }
+        public String Name { get; set; }
+        public Int32 Quantity { get; set; }
 
         public void GetFromConsole();
         public String GetText();
         public String GetJson();
-        public string ToString();
+        public String ToString();
         abstract public IProduct NewProduct();
     }
 }

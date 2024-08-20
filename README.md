@@ -8,6 +8,8 @@
 - ...
 
 ### BLOG
+#### 240820 
+- Minor formatting and typing updates before class.
 
 #### 240819 - SD.M2.Week1 - Pet Store Part 4
 - Updates for Pet Store Part 4

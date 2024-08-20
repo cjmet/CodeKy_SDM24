@@ -44,8 +44,6 @@ namespace PetStore
             } while (quantity < 0);
             this.Quantity = quantity;
         }
-
-        // This should really probably be override ToString() instead of DisplayText()
         virtual public String GetText()
         {
             String _displayString = "";
@@ -56,19 +54,14 @@ namespace PetStore
             _displayString += ("Quantity: " + Quantity);
             return _displayString;
         }
-
         virtual public String GetJson()
         {
             String jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
-
-        public override string ToString()
+        public override String ToString()
         {
             return GetText();
         }
-
-
-
     }
 }
