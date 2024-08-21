@@ -1,13 +1,14 @@
 ﻿using System.Text.Json;
+using PetStore.Interfaces;
 
-namespace PetStore
+namespace PetStore.Products
 {
     abstract public class Product : IProduct
     {
-        public String Name { get; set; } = "";
-        public Decimal Price { get; set; }
-        public String Description { get; set; } = "";
-        public Int32 Quantity { get; set; }
+        public string Name { get; set; } = "";
+        public decimal Price { get; set; }
+        public string Description { get; set; } = "";
+        public int Quantity { get; set; }
 
         abstract public IProduct NewProduct();
         virtual public void GetFromConsole()
@@ -18,7 +19,7 @@ namespace PetStore
                 Console.WriteLine("Enter the name of the Product:");
                 name = Console.ReadLine()!;
             } while (name.Trim() == "");
-            this.Name = name;
+            Name = name;
 
             decimal price;
             do
@@ -26,7 +27,7 @@ namespace PetStore
                 Console.WriteLine("Enter the price of the Product");
                 price = decimal.TryParse(Console.ReadLine()!, out price) ? price : -1;
             } while (price < 0);
-            this.Price = price;
+            Price = price;
 
             string desc;
             do
@@ -34,7 +35,7 @@ namespace PetStore
                 Console.WriteLine("Enter the description of the Product");
                 desc = Console.ReadLine()!;
             } while (desc.Trim() == "");
-            this.Description = desc;
+            Description = desc;
 
             int quantity;
             do
@@ -42,24 +43,24 @@ namespace PetStore
                 Console.WriteLine("Enter the quantity of the Product");
                 quantity = int.TryParse(Console.ReadLine()!, out quantity) ? quantity : -1;
             } while (quantity < 0);
-            this.Quantity = quantity;
+            Quantity = quantity;
         }
-        virtual public String GetText()
+        virtual public string GetText()
         {
-            String _displayString = "";
+            string _displayString = "";
 
-            _displayString += ("Name: " + Name + "\n");
-            _displayString += ("Price: " + Price + "\n");
-            _displayString += ("Description: " + Description + "\n");
-            _displayString += ("Quantity: " + Quantity);
+            _displayString += "Name: " + Name + "\n";
+            _displayString += "Price: " + Price + "\n";
+            _displayString += "Description: " + Description + "\n";
+            _displayString += "Quantity: " + Quantity;
             return _displayString;
         }
-        virtual public String GetJson()
+        virtual public string GetJson()
         {
-            String jsonString = JsonSerializer.Serialize(this);
+            string jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
-        public override String ToString()
+        public override string ToString()
         {
             return GetText();
         }

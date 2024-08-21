@@ -1,4 +1,9 @@
-﻿namespace PetStore
+﻿using PetStore.Interfaces;
+using PetStore.Logic;
+using PetStore.Products;
+using PetStore.Utils;
+
+namespace PetStore
 {
     internal class Program
     {
@@ -29,6 +34,7 @@
                 Console.WriteLine("3. Get All Products");
                 Console.WriteLine("4. Get In-Stock Product Names");
                 Console.WriteLine("5. Get Out-of-Stock Product Names");
+                Console.WriteLine("6. Get Total Inventory Value");
                 Console.WriteLine("   ---");
                 Console.WriteLine("0. Exit");
 
@@ -144,6 +150,13 @@
                                 }
                             }
                             else Console.WriteLine("Null or No Out-of-Stock Products.");
+                            break;
+                        }
+                    case "t":
+                    case "6":
+                        {
+                            Decimal totalValue = _productLogic.GetTotalInventoryValue();
+                            Console.WriteLine("Total Inventory Value: " + totalValue);
                             break;
                         }
                     case "0":

@@ -1,4 +1,7 @@
-﻿namespace PetStore
+﻿using PetStore.Interfaces;
+using PetStore.Utils;
+
+namespace PetStore.Logic
 {
     public class ProductLogic
     {
@@ -42,15 +45,20 @@
         }
         public List<IProduct> GetInStockProducts()
         {
-            return _products.Values.Where(p => p.Quantity >0).ToList();
+            return _products.Values.Where(p => p.Quantity > 0).ToList();
         }
-        public List<String> GetInStockProductNames()
+        public List<string> GetInStockProductNames()
         {
-            return _products.Values.Where(p => p.Quantity > 0).Select(p => p.Name).ToList();
+            //return _products.Values.Where(p => p.Quantity > 0).Select(p => p.Name).ToList();
+            return _products.Values.ToList().InStock().Select(p => p.Name).ToList();
         }
-        public List<String> GetOutOfStockProductNames()
+        public List<string> GetOutOfStockProductNames()
         {
             return _products.Values.Where(p => p.Quantity <= 0).Select(p => p.Name).ToList();
+        }
+        public decimal GetTotalInventoryValue()
+        {
+            return _products.Values.ToList().InStock().Sum(p => p.Price * p.Quantity);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PetStore
+﻿namespace PetStore.Utils
 {
     public class Logo
     {

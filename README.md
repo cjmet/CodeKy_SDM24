@@ -5,9 +5,16 @@
 
 ---
 ### To-Do
-- ...
+- Extension Methods in the Sandbox
 
 ### BLOG
+
+#### 240821 - SD.M2.Week2 - Pet Store Part 5 and Part 6
+- Added Extension Method and Wedged it into GetInStockProducts()
+- Added GetTotalInventoryValue
+  - Added access to .Price into IProduct
+- Started organizing folders
+
 #### 240820 
 - Minor formatting and typing updates before class.
 

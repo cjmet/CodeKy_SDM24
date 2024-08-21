@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetStore
+namespace PetStore.Interfaces
 {
     public interface IProductLogic
     {
@@ -13,7 +13,8 @@ namespace PetStore
         IProduct SearchForProduct(string name);
         List<IProduct> GetAllProducts();
         List<IProduct> GetInStockProducts();
-        List<String> GetInStockProductNames();
-        List<String> GetOutOfStockProductNames();
+        List<string> GetInStockProductNames();
+        List<string> GetOutOfStockProductNames();
+        decimal GetTotalInventoryValue();
     }
 }

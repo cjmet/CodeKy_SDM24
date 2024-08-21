@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using PetStore.Interfaces;
 
-namespace PetStore
+namespace PetStore.Products
 {
     public class DogLeash : Product
     {
@@ -16,7 +17,7 @@ namespace PetStore
                 Console.WriteLine("Enter the Length in inches of the Leash:");
                 inches = int.TryParse(Console.ReadLine()!, out inches) ? inches : -1;
             } while (inches < 0);
-            this.LengthInches = inches;
+            LengthInches = inches;
 
             string input;
             do
@@ -24,19 +25,19 @@ namespace PetStore
                 Console.WriteLine("What is this Leashe's Material?");
                 input = Console.ReadLine().Trim()!;
             } while (input == null || input == "");
-            this.Material = input;
+            Material = input;
         }
-        public override String GetText()
+        public override string GetText()
         {
-            String _displayString = base.GetText() + "\n";
-            _displayString += ("LengthInches: " + this.LengthInches + "\n");
-            _displayString += ("Material: " + this.Material);
+            string _displayString = base.GetText() + "\n";
+            _displayString += "LengthInches: " + LengthInches + "\n";
+            _displayString += "Material: " + Material;
 
             return _displayString;
         }
-        public override String GetJson()
+        public override string GetJson()
         {
-            String jsonString = JsonSerializer.Serialize(this);
+            string jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
     }

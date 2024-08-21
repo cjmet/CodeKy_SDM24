@@ -1,4 +1,6 @@
-﻿namespace PetStore
+﻿using PetStore.Products;
+
+namespace PetStore.Depreciated
 {
     public static class UserInput
     {

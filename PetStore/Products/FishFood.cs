@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using PetStore.Interfaces;
 
-namespace PetStore
+namespace PetStore.Products
 {
     public class FishFood : Product, IProduct
     {
         public double WeightOunces { get; set; }
         public bool FlakeFood { get; set; }
 
-        public override IProduct NewProduct() { return new FishFood();}
+        public override IProduct NewProduct() { return new FishFood(); }
         public override void GetFromConsole()
         {
             base.GetFromConsole();
@@ -22,7 +23,7 @@ namespace PetStore
                 Console.WriteLine("Enter the weight of the FishFood in Ounces:");
                 weight = double.TryParse(Console.ReadLine()!, out weight) ? weight : -1;
             } while (weight < 0);
-            this.WeightOunces = weight;
+            WeightOunces = weight;
 
             bool flakeFood;
             string input;
@@ -33,19 +34,19 @@ namespace PetStore
                 input = input.Trim();
                 flakeFood = input == "y" || input == "yes";
             } while (input != "y" && input != "yes" && input != "n" && input != "no");
-            this.FlakeFood = flakeFood;
+            FlakeFood = flakeFood;
         }
-        public override String GetText()
+        public override string GetText()
         {
-            String _displayString = base.GetText() + "\n";
-            _displayString += ("Ounces: " + WeightOunces + "\n");
-            _displayString += ("Flake Food: " + FlakeFood);
+            string _displayString = base.GetText() + "\n";
+            _displayString += "Ounces: " + WeightOunces + "\n";
+            _displayString += "Flake Food: " + FlakeFood;
 
             return _displayString;
         }
-        public override String GetJson()
+        public override string GetJson()
         {
-            String jsonString = JsonSerializer.Serialize(this);
+            string jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
 

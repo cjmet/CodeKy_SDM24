@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using PetStore.Interfaces;
 
-namespace PetStore
+namespace PetStore.Products
 {
     public class CatFood : Product, IProduct
     {
@@ -17,7 +18,7 @@ namespace PetStore
                 Console.WriteLine("Enter the weight of the CatFood:");
                 weight = double.TryParse(Console.ReadLine()!, out weight) ? weight : -1;
             } while (weight < 0);
-            this.WeightPounds = weight;
+            WeightPounds = weight;
 
             bool kittenFood;
             string input;
@@ -28,19 +29,19 @@ namespace PetStore
                 input = input.Trim();
                 kittenFood = input == "y" || input == "yes";
             } while (input != "y" && input != "yes" && input != "n" && input != "no");
-            this.KittenFood = kittenFood;
+            KittenFood = kittenFood;
         }
-        public override String GetText()
+        public override string GetText()
         {
-            String _displayString = base.GetText() + "\n";
-            _displayString += ("Weight: " + WeightPounds + "\n");
-            _displayString += ("Kitten Food: " + KittenFood);
+            string _displayString = base.GetText() + "\n";
+            _displayString += "Weight: " + WeightPounds + "\n";
+            _displayString += "Kitten Food: " + KittenFood;
 
             return _displayString;
         }
-        public override String GetJson()
+        public override string GetJson()
         {
-            String jsonString = JsonSerializer.Serialize(this);
+            string jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
 
