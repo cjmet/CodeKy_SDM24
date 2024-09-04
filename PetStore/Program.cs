@@ -2,21 +2,46 @@
 using PetStore.Logic;
 using PetStore.Products;
 using PetStore.Utils;
+using Microsoft.Extensions.DependencyInjection; // cjm - added for DI
+using System.Diagnostics;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using FluentValidation;
+
 
 namespace PetStore
 {
-    internal class Program
+    internal static class Program
     {
         // We haven't covered Reflection yet, so I'm going to use a list of products.
         private static List<IProduct> _productList = [new CatFood(), new DogLeash(), new FishFood(), new CatToys()];
 
+        // MAIN
         static void Main(string[] args)
         {
             Console.WriteLine(Logo.GetLogo());
-
             Console.WriteLine("Welcome to the Pet Store!");
 
-            ProductLogic _productLogic = new ProductLogic();
+            if (true)
+            {
+                var x = mixleplic("PetStore.Products.CatFood");
+                Console.WriteLine(x.GetType().ToString().Indent());
+                Console.WriteLine(x.GetJson().Indent(2));
+                Console.WriteLine(x.GetText().Indent(3));
+                Console.WriteLine("\n\n");
+            }
+
+
+            IServiceProvider _serviceProvider = CreateServiceCollection();
+            Debug.WriteLine($"Service Provider Created: [{_serviceProvider}]");
+
+            //ProductLogic _productLogic = new ProductLogic();
+
+            ProductLogic _productLogic = _serviceProvider.GetService<IProductLogic>() as ProductLogic;  // cjm ... as ProductLogic;
+            Debug.WriteLine($"Product Logic Created: [{_productLogic}]");
+
+
+
             Program.AddTestData(_productLogic);
 
             // I had to declare these outside the loop for scope.
@@ -35,6 +60,8 @@ namespace PetStore
                 Console.WriteLine("4. Get In-Stock Product Names");
                 Console.WriteLine("5. Get Out-of-Stock Product Names");
                 Console.WriteLine("6. Get Total Inventory Value");
+                Console.WriteLine("7. Read Json Input");
+                Console.WriteLine("8. Get Generic Product By Name");
                 Console.WriteLine("   ---");
                 Console.WriteLine("0. Exit");
 
@@ -159,6 +186,41 @@ namespace PetStore
                             Console.WriteLine("Total Inventory Value: " + totalValue);
                             break;
                         }
+                    case "j":
+                    case "7":
+                        {
+                            Console.WriteLine("Reading Json Input ...");
+
+                            IProduct? product = Program.ConsoleGetJsonProduct();
+                            if (product == null)
+                            {
+                                Console.WriteLine("Product not created.");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Adding Product ...");
+                                _productLogic.AddProduct(product);
+                                Console.WriteLine("Product Added: " + product.GetJson());
+                            }
+                            break;
+                        }
+                    case "8":
+                        {
+                            Console.WriteLine("Enter the name of the product:");
+                            string name = Console.ReadLine()!;
+                            IProduct product = _productLogic.GenericProductByName<IProduct>(name);
+                            if (product != null)
+                            {
+                                Console.WriteLine($"Product Found:");
+                                Console.WriteLine(product.GetText());
+                            }
+                            else
+                            {
+                                Console.WriteLine("Product not found.");
+                            }
+                            break;
+                        }
                     case "0":
                     case "x":
                     case "e":
@@ -171,6 +233,65 @@ namespace PetStore
             } while (loop);
         }
 
+        private static IProduct? ConsoleGetJsonProduct()
+        {
+            string productType = "";
+            do
+            {
+                Console.WriteLine("Select a Product Type:");
+                foreach (IProduct product in _productList)
+                {
+                    var verboseClassName = product.GetType().ToString();
+                    var shortClassName = verboseClassName.Substring(verboseClassName.LastIndexOf('.') + 1);
+                    Console.Write($"{shortClassName}, ");
+                }
+                Console.WriteLine();
+
+                productType = Console.ReadLine()!;
+                foreach (IProduct product in _productList)
+                {
+                    var verboseClassName = product.GetType().ToString();
+                    var shortClassName = verboseClassName.Substring(verboseClassName.LastIndexOf('.') + 1);
+                    if (productType == shortClassName)
+                    {
+                        IProduct? newProduct = null;
+
+                        FluentValidation.Results.ValidationResult result;
+                        var validator = new IProductValidator();
+                        do
+                        {
+                            result = null;
+                            Console.WriteLine($"\nEnter the JSON for the Product[{productType}]:");
+                            String jsonText = Console.ReadLine()!;
+
+                            if (jsonText.Trim() == "") break;
+
+                            // NewFromJson needs to be improved and made into a single method if possible.
+                            // use the constructor from the static list of products we created at the beginning of the program class.
+                            try
+                            {
+                                newProduct = product.NewFromJson(jsonText);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                                continue;
+                            }
+
+                            //validator.ValidateAndThrow(newProduct); // cjm2
+                            result = validator.Validate(newProduct); // cjm2
+                            if (result != null && !result.IsValid) Console.WriteLine("Validation Error: " + result.ToString());
+                        } while (result == null || !result.IsValid);
+
+                        return newProduct;
+                    }
+                }
+
+                Console.WriteLine("Product Type not found.\n");
+            } while (productType != "");
+
+            return null;
+        }
         private static void AddTestData(ProductLogic _productLogic)
         {
             _productLogic.AddProduct(new CatFood
@@ -222,7 +343,6 @@ namespace PetStore
                 Quantity = 0,
             });
         }
-
         private static IProduct? ConsoleGetNewProduct()
         {
             Console.WriteLine("Select a Product Type:");
@@ -261,7 +381,6 @@ namespace PetStore
             Console.WriteLine("Product Type not found.");
             return null;
         }
-
         private static IProduct ConsoleSearchForProduct(ProductLogic _productLogic)
         {
             Console.WriteLine("Enter the name of the product:");
@@ -270,7 +389,6 @@ namespace PetStore
             IProduct product = _productLogic.SearchForProduct(name);
             return product;
         }
-
         private static IProduct? NewIProductInstance(IProduct product)
         {
             if (product == null) return null;
@@ -295,7 +413,45 @@ namespace PetStore
             }
             return newProduct;
         }
+        private static IServiceProvider CreateServiceCollection()
+        {
+            // Create a new ServiceCollection
+            var services = new ServiceCollection();
 
+            // Add the services to the collection
+            services.AddTransient<IProductLogic, ProductLogic>();
+
+            // Build the service provider
+            var serviceProvider = services.BuildServiceProvider();
+
+            return serviceProvider;
+        }
+        public static String Indent(this String S, Int32 I = 1)
+        {
+            for (int i = 0; i < I; i++) S = Regex.Replace(S, "^", "   ", RegexOptions.Multiline);
+            return S;
+        }
+
+        // "mixleplic" because it's magic
+        // "Mixleplic" is a method that uses Reflection to create an instance of a class.
+        private static IProduct mixleplic(String T)
+        {
+            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            Console.WriteLine($"AssemblyName: {assemblyName}");
+            IProduct results = null;
+
+            try
+            {
+                results = (IProduct)Activator.CreateInstance(assemblyName, T).Unwrap();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+
+            return results;
+        }
     }
 }
 

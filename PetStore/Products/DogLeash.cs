@@ -40,5 +40,10 @@ namespace PetStore.Products
             string jsonString = JsonSerializer.Serialize(this);
             return jsonString;
         }
+        public override IProduct NewFromJson(string jsonText)
+        {
+            IProduct newcopy = JsonSerializer.Deserialize<DogLeash>(jsonText);
+            return newcopy;
+        }
     }
 }

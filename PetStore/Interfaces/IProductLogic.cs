@@ -10,6 +10,7 @@ namespace PetStore.Interfaces
     {
         void AddProduct(IProduct product);
         IProduct GetProductByName(string name);
+        public T GenericProductByName<T>(string name) where T : IProduct;
         IProduct SearchForProduct(string name);
         List<IProduct> GetAllProducts();
         List<IProduct> GetInStockProducts();

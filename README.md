@@ -9,6 +9,9 @@
 
 ### BLOG
 
+#### 240903 - SD.M2.Week3 - Pet Store Part 7 and Part 8
+- Dependancy Injection, Fluent Validation, and Generics
+
 #### 240821 - SD.M2.Week2 - Pet Store Part 5 and Part 6
 - Added Extension Method and Wedged it into GetInStockProducts()
 - Added GetTotalInventoryValue

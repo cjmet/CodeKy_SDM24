@@ -3,7 +3,7 @@ using PetStore.Utils;
 
 namespace PetStore.Logic
 {
-    public class ProductLogic
+    public class ProductLogic : IProductLogic  // cjm - Interface added for DI
     {
         private Dictionary<string, IProduct> _products;
 
@@ -19,6 +19,13 @@ namespace PetStore.Logic
         public List<IProduct> GetAllProducts()
         {
             return _products.Values.ToList();
+        }
+        public T GenericProductByName<T>(string name) where T : IProduct
+        {
+            IProduct _product = null;
+
+            _products.TryGetValue(name, out _product);
+            return (T)_product;
         }
         public IProduct GetProductByName(string name)
         {

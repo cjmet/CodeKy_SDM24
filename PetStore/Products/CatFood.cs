@@ -45,5 +45,10 @@ namespace PetStore.Products
             return jsonString;
         }
 
+        public override IProduct NewFromJson(string jsonText)
+        {
+            IProduct newcopy = JsonSerializer.Deserialize<CatFood>(jsonText);
+            return newcopy;
+        }
     }
 }

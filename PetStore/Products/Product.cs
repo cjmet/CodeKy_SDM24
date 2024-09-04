@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using PetStore.Interfaces;
+using FluentValidation;
 
 namespace PetStore.Products
 {
@@ -10,7 +12,10 @@ namespace PetStore.Products
         public string Description { get; set; } = "";
         public int Quantity { get; set; }
 
+
         abstract public IProduct NewProduct();
+        abstract public IProduct NewFromJson(String jsonText);
+
         virtual public void GetFromConsole()
         {
             string name;
@@ -64,5 +69,7 @@ namespace PetStore.Products
         {
             return GetText();
         }
+
+       
     }
 }
